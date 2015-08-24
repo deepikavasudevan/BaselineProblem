@@ -20,7 +20,13 @@ public class SalesTax {
     void formatItemDetails(String itemDetails) {
         String arrayOfDetails[]=itemDetails.split(" ");
 
+        int lastIndex=arrayOfDetails.length;
+
         int quantityOfItem=Integer.parseInt(arrayOfDetails[0]);
+        double shelfPriceOfItem=Double.parseDouble (arrayOfDetails[lastIndex-1]);
+
+        System.out.println ("Q"+quantityOfItem+" S"+shelfPriceOfItem);
+
     }
 
     double calculateSalesTax(double shelfPrice) {
