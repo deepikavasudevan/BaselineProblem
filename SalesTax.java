@@ -5,6 +5,9 @@ import java.io.*;
 
 public class SalesTax {
 
+    double totalSalesTax=0.0, totalPrice=0.0;
+    String exemptedItems[]={"music", "pills", "chocolate"};
+
     String getItemDetails() {
         String totalItemDetails="";
         try {
@@ -17,6 +20,17 @@ public class SalesTax {
      return totalItemDetails;
     }
 
+    boolean isImportedItem(String value) {
+        if (value.equalsIgnoreCase("imported"))
+            return true;
+        else
+            return false;
+    }
+
+    void calculatesTotalCost(double quantityOfItem, double shelPriceOfItem, String itemName, boolean isImportedItem) {
+        double totalCost=0.0;
+    }
+
     void formatItemDetails(String itemDetails) {
         String arrayOfDetails[]=itemDetails.split(" ");
         String itemName="";
@@ -26,7 +40,7 @@ public class SalesTax {
         int quantityOfItem=Integer.parseInt(arrayOfDetails[0]);
         double shelfPriceOfItem=Double.parseDouble (arrayOfDetails[lastIndex]);
 
-        if (arrayOfDetails[1].equalsIgnoreCase("imported")) {
+        if (isImportedItem(arrayOfDetails[1])) {
             for (int i=2;i<lastIndex-1;i++){
                 itemName+=arrayOfDetails[i];
             }
@@ -37,9 +51,9 @@ public class SalesTax {
             }
         }
 
-        System.out.println ("Q"+quantityOfItem+" S"+shelfPriceOfItem+"I"+itemName);
-
+        calculatesTotalCost(quantityOfItem, shelfPriceOfItem, itemName, isImportedItem(arrayOfDetails[1]));
     }
+
 
     double calculateSalesTax(double shelfPrice) {
 
