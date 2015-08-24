@@ -45,12 +45,12 @@ public class SalesTax {
         if (!(isExemptedFromSalesTax(itemName))) {
             totalCost+=calculateSalesTax(shelfPriceOfItem);
         }
-        
+
 
         if (isImportedItem) {
             totalCost+=calculateImportedTax(shelfPriceOfItem);
         }
-
+    
         System.out.println(totalCost);
     }
 
@@ -79,9 +79,11 @@ public class SalesTax {
 
 
     double calculateSalesTax(double shelfPrice) {
-        totalSalesTax+=shelfPrice*0.10;
+        double salesTax=Math.round((shelfPrice*0.10)*100.0)/100.0;
 
-        return (shelfPrice*0.10);
+        totalSalesTax+=salesTax;
+
+        return salesTax;
     }
 
     double calculateImportedTax(double shelfPrice) {
