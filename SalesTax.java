@@ -1,12 +1,14 @@
 /**
  * Created by vdeepika on 24/08/15.
  */
+import com.sun.tools.javac.util.BasicDiagnosticFormatter;
+
 import java.io.*;
 
 public class SalesTax {
 
     double totalSalesTax=0.0, totalPrice=0.0;
-
+    String bill="";
 
     String getItemDetails() {
         String totalItemDetails="";
@@ -39,21 +41,22 @@ public class SalesTax {
     return isExempted;
     }
 
-    void calculatesTotalCost(double quantityOfItem, double shelfPriceOfItem, String itemName, boolean isImportedItem) {
+    void calculatesTotalCost(int quantityOfItem, double shelfPriceOfItem, String itemName, boolean isImportedItem) {
         double totalCost=0.0d;
-        double salesTax=0.0d;
+        double salesTax=0.0d, importTax=0.0d;
 
         if (!(isExemptedFromSalesTax(itemName))) {
             salesTax=calculateSalesTax(shelfPriceOfItem);
         }
 
         if (isImportedItem) {
-            totalCost+=calculateImportedTax(shelfPriceOfItem);
+            importTax=calculateImportedTax(shelfPriceOfItem);
         }
 
-        totalCost=Math.round((shelfPriceOfItem+salesTax)*100.0)/100.0;
+        totalCost=Math.round((shelfPriceOfItem+salesTax+importTax)*100.0)/100.0;
 
-        System.out.println(salesTax+" "+totalCost);
+        bill=quantityOfItem+" "+itemName+":"+totalCost+"\n";
+        totalPrice+=totalPrice;
     }
 
     void formatItemDetails(String itemDetails) {
@@ -67,12 +70,12 @@ public class SalesTax {
 
         if (isImportedItem(arrayOfDetails[1])) {
             for (int i=2;i<lastIndex-1;i++){
-                itemName+=arrayOfDetails[i];
+                itemName+=arrayOfDetails[i]+" ";
             }
         }
         else {
             for (int i=1;i<lastIndex-1;i++){
-                itemName+=arrayOfDetails[i];
+                itemName+=arrayOfDetails[i]+" ";
             }
         }
 
@@ -85,12 +88,20 @@ public class SalesTax {
 
         totalSalesTax+=salesTax;
 
+        System.out.println(totalSalesTax);
+
         return salesTax;
     }
 
     double calculateImportedTax(double shelfPrice) {
 
         return (shelfPrice*0.05);
+    }
+
+    void printBill() {
+        System.out.println(bill);
+        System.out.println("Sales Taxes: "+totalSalesTax);
+        System.out.println("Total: "+totalPrice);
     }
 
     public static void main(String[] args) {
@@ -105,9 +116,10 @@ public class SalesTax {
                st.formatItemDetails(item);
            }
            else {
-               System.exit(0);
+               st.printBill();
            }
         }
+
 
     }
 }
