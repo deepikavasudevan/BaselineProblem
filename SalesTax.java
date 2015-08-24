@@ -19,13 +19,25 @@ public class SalesTax {
 
     void formatItemDetails(String itemDetails) {
         String arrayOfDetails[]=itemDetails.split(" ");
+        String itemName="";
 
-        int lastIndex=arrayOfDetails.length;
+        int lastIndex=arrayOfDetails.length-1;
 
         int quantityOfItem=Integer.parseInt(arrayOfDetails[0]);
-        double shelfPriceOfItem=Double.parseDouble (arrayOfDetails[lastIndex-1]);
+        double shelfPriceOfItem=Double.parseDouble (arrayOfDetails[lastIndex]);
 
-        System.out.println ("Q"+quantityOfItem+" S"+shelfPriceOfItem);
+        if (arrayOfDetails[1].equalsIgnoreCase("imported")) {
+            for (int i=2;i<lastIndex-1;i++){
+                itemName+=arrayOfDetails[i];
+            }
+        }
+        else {
+            for (int i=1;i<lastIndex-1;i++){
+                itemName+=arrayOfDetails[i];
+            }
+        }
+
+        System.out.println ("Q"+quantityOfItem+" S"+shelfPriceOfItem+"I"+itemName);
 
     }
 
@@ -44,10 +56,16 @@ public class SalesTax {
         SalesTax st=new SalesTax();
         String item;
 
-        do {
+        for (; ;) {
            item= st.getItemDetails();
-            st.formatItemDetails(item);
-        } while (!(item.equals("Done")));
+
+           if (!(item.equals("Done"))) {
+               st.formatItemDetails(item);
+           }
+           else {
+               System.exit(0);
+           }
+        }
 
     }
 }
