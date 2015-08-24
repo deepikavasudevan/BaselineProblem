@@ -17,6 +17,10 @@ public class SalesTax {
      return totalItemDetails;
     }
 
+    double calculateSalesTax(int shelfPrice) {
+        int salesTax=shelfPrice*
+    }
+
     public static void main(String[] args) {
 
         SalesTax st=new SalesTax();
