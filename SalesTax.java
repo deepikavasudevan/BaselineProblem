@@ -6,7 +6,7 @@ import java.io.*;
 public class SalesTax {
 
     double totalSalesTax=0.0, totalPrice=0.0;
-    String exemptedItems[]={"music", "pills", "chocolate"};
+
 
     String getItemDetails() {
         String totalItemDetails="";
@@ -27,8 +27,31 @@ public class SalesTax {
             return false;
     }
 
-    void calculatesTotalCost(double quantityOfItem, double shelPriceOfItem, String itemName, boolean isImportedItem) {
-        double totalCost=0.0;
+    boolean isExemptedFromSalesTax(String itemName) {
+        String exemptedItems[]={"book", "pills", "chocolate", "chocolates"};
+        boolean isExempted=false;
+            for (int i=0;i<exemptedItems.length-1;i++){
+                if (itemName.contains(exemptedItems[i])) {
+                 isExempted=true;
+                    break;
+                }
+            }
+    return isExempted;
+    }
+
+    void calculatesTotalCost(double quantityOfItem, double shelfPriceOfItem, String itemName, boolean isImportedItem) {
+        double totalCost=shelfPriceOfItem;
+
+        if (!(isExemptedFromSalesTax(itemName))) {
+            totalCost+=calculateSalesTax(shelfPriceOfItem);
+        }
+        
+
+        if (isImportedItem) {
+            totalCost+=calculateImportedTax(shelfPriceOfItem);
+        }
+
+        System.out.println(totalCost);
     }
 
     void formatItemDetails(String itemDetails) {
@@ -50,12 +73,13 @@ public class SalesTax {
                 itemName+=arrayOfDetails[i];
             }
         }
-
+        System.out.println(shelfPriceOfItem);
         calculatesTotalCost(quantityOfItem, shelfPriceOfItem, itemName, isImportedItem(arrayOfDetails[1]));
     }
 
 
     double calculateSalesTax(double shelfPrice) {
+        totalSalesTax+=shelfPrice*0.10;
 
         return (shelfPrice*0.10);
     }
