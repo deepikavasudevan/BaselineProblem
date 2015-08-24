@@ -40,18 +40,20 @@ public class SalesTax {
     }
 
     void calculatesTotalCost(double quantityOfItem, double shelfPriceOfItem, String itemName, boolean isImportedItem) {
-        double totalCost=shelfPriceOfItem;
+        double totalCost=0.0d;
+        double salesTax=0.0d;
 
         if (!(isExemptedFromSalesTax(itemName))) {
-            totalCost+=calculateSalesTax(shelfPriceOfItem);
+            salesTax=calculateSalesTax(shelfPriceOfItem);
         }
-
 
         if (isImportedItem) {
             totalCost+=calculateImportedTax(shelfPriceOfItem);
         }
-    
-        System.out.println(totalCost);
+
+        totalCost=Math.round((shelfPriceOfItem+salesTax)*100.0)/100.0;
+
+        System.out.println(salesTax+" "+totalCost);
     }
 
     void formatItemDetails(String itemDetails) {
@@ -73,7 +75,7 @@ public class SalesTax {
                 itemName+=arrayOfDetails[i];
             }
         }
-        System.out.println(shelfPriceOfItem);
+
         calculatesTotalCost(quantityOfItem, shelfPriceOfItem, itemName, isImportedItem(arrayOfDetails[1]));
     }
 
