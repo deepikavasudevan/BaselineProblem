@@ -55,8 +55,8 @@ public class SalesTax {
 
         totalCost=Math.round((shelfPriceOfItem+salesTax+importTax)*100.0)/100.0;
 
-        bill=quantityOfItem+" "+itemName+":"+totalCost+"\n";
-        totalPrice+=totalPrice;
+        bill+=quantityOfItem+" "+itemName+":"+totalCost+"\n";
+        totalPrice+=totalCost;
     }
 
     void formatItemDetails(String itemDetails) {
@@ -88,8 +88,6 @@ public class SalesTax {
 
         totalSalesTax+=salesTax;
 
-        System.out.println(totalSalesTax);
-
         return salesTax;
     }
 
@@ -116,10 +114,10 @@ public class SalesTax {
                st.formatItemDetails(item);
            }
            else {
-               st.printBill();
+           break;
            }
         }
 
-
+        st.printBill();
     }
 }
