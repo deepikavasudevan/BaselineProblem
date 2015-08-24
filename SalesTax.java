@@ -5,7 +5,7 @@ import java.io.*;
 
 public class SalesTax {
 
-    String getItem() {
+    String getItemDetails() {
         String totalItemDetails="";
         try {
             BufferedReader br=new BufferedReader (new InputStreamReader (System.in));
@@ -17,8 +17,20 @@ public class SalesTax {
      return totalItemDetails;
     }
 
-    double calculateSalesTax(int shelfPrice) {
-        int salesTax=shelfPrice*
+    void formatItemDetails(String itemDetails) {
+        String arrayOfDetails[]=itemDetails.split(" ");
+
+        int quantityOfItem=Integer.parseInt(arrayOfDetails[0]);
+    }
+
+    double calculateSalesTax(double shelfPrice) {
+
+        return (shelfPrice*0.10);
+    }
+
+    double calculateImportedTax(double shelfPrice) {
+
+        return (shelfPrice*0.05);
     }
 
     public static void main(String[] args) {
@@ -27,7 +39,8 @@ public class SalesTax {
         String item;
 
         do {
-           item= st.getItem();
+           item= st.getItemDetails();
+            st.formatItemDetails(item);
         } while (!(item.equals("Done")));
 
     }
